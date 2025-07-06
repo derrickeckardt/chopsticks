@@ -13,19 +13,26 @@ def sum_all_numbers(m):
 
 sum_all_numbers(100)
 
-player1 = {'left':1, 'right':1}
-player2 = {'left':1, 'right':1}
+player1 = {'left':1, 'right':3}
+player2 = {'left':0, 'right':2}
 
 def check_if_hand_full(hand):
     if hand >= 5:
         hand = 0
     return hand
 
+def if_winner(player):
+    if player['left'] == 0 and player['right']==0:
+        #winner
+        return True
+    else:
+        return False
+
 # Possible Moves
-def combine(player1):
+def combine(player):
     # from left hand to right hand
-    left = player1['left']
-    right = player1['right']
+    left = player['left']
+    right = player['right']
     maximum = max(left,right)
     print(maximum)
 
@@ -34,7 +41,7 @@ def combine(player1):
         a,b = ['right','left']
 
     for i in range(maximum+1):
-        temp_player = deepcopy(player1)
+        temp_player = deepcopy(player)
         temp_player[b] = temp_player[b] + i
         temp_player[b] = check_if_hand_full(temp_player[b])
         temp_player[a] = temp_player[a] - i
@@ -55,7 +62,7 @@ def strike(player1, player2):
             else:
                 temp_player[theirhand] = player1[myhand] + temp_player[theirhand]
                 temp_player[theirhand] = check_if_hand_full(temp_player[theirhand])
-            print(player1, player2, temp_player)
+            print(player1, player2, temp_player,if_winner(temp_player))
 
 
 print(strike(player1,player2))
